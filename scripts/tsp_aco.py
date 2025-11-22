@@ -35,10 +35,10 @@ class TSP_ACO:
         self.evaporation_rate = evaporation_rate
         self.q = q
         
-        # Khởi tạo ma trận pheromone
+    
         self.pheromone = [[1.0 for _ in range(self.n_cities)] for _ in range(self.n_cities)]
         
-        # Tính toán ma trận heuristic (nghịch đảo khoảng cách)
+      
         self.heuristic = [[0.0 for _ in range(self.n_cities)] for _ in range(self.n_cities)]
         for i in range(self.n_cities):
             for j in range(self.n_cities):
@@ -56,7 +56,7 @@ class TSP_ACO:
         total_distance = 0
         for i in range(len(route) - 1):
             total_distance += self.distance_matrix[route[i]][route[i + 1]]
-        # Quay về thành phố xuất phát
+       
         total_distance += self.distance_matrix[route[-1]][route[0]]
         return total_distance
     
@@ -75,13 +75,13 @@ class TSP_ACO:
             probabilities.append(probability)
             total_probability += probability
         
-        # Chuẩn hóa xác suất
+      
         if total_probability == 0:
             return random.choice(unvisited)
         
         probabilities = [p / total_probability for p in probabilities]
         
-        # Chọn dựa trên xác suất dùng roulette wheel selection
+     
         rand = random.random()
         cumulative = 0
         for i, city in enumerate(unvisited):
@@ -98,7 +98,7 @@ class TSP_ACO:
         unvisited = list(range(self.n_cities))
         unvisited.remove(start_city)
         
-        # Xây dựng tuyến đường
+       
         while unvisited:
             current_city = route[-1]
             next_city = self.select_next_city(current_city, unvisited)
@@ -110,19 +110,19 @@ class TSP_ACO:
     
     def update_pheromone(self, all_routes: List[Tuple[List[int], float]]):
         """Cập nhật ma trận pheromone"""
-        # Bay hơi pheromone (tất cả)
+       
         for i in range(self.n_cities):
             for j in range(self.n_cities):
                 self.pheromone[i][j] *= (1 - self.evaporation_rate)
         
-        # Thêm pheromone mới từ các kiến
+      
         for route, distance in all_routes:
             pheromone_deposit = self.q / distance
             for i in range(len(route) - 1):
                 self.pheromone[route[i]][route[i + 1]] += pheromone_deposit
                 self.pheromone[route[i + 1]][route[i]] += pheromone_deposit
             
-            # Cạnh quay về thành phố xuất phát
+          
             self.pheromone[route[-1]][route[0]] += pheromone_deposit
             self.pheromone[route[0]][route[-1]] += pheromone_deposit
     
@@ -155,12 +155,12 @@ class TSP_ACO:
         for iteration in range(self.n_iterations):
             all_routes = []
             
-            # Mỗi con kiến xây dựng một giải pháp
+          
             for ant in range(self.n_ants):
                 route, distance = self.construct_solution()
                 all_routes.append((route, distance))
                 
-                # Cập nhật giải pháp tốt nhất
+               
                 if distance < self.best_distance:
                     self.best_distance = distance
                     self.best_route = route
@@ -169,10 +169,10 @@ class TSP_ACO:
                         log_msg = f"Iteration {iteration + 1}: Tìm tuyến đường tốt hơn: {self.best_distance:.2f} km"
                         self.steps_log.append(log_msg)
             
-            # Cập nhật pheromone
+         
             self.update_pheromone(all_routes)
             
-            # Lưu dữ liệu hội tụ
+        
             self.convergence_data.append(self.best_distance)
             
             if verbose and (iteration + 1) % 10 == 0:
@@ -181,7 +181,7 @@ class TSP_ACO:
         
         self.execution_time = time.time() - start_time
         
-        # Chuyển đổi route từ index sang tên thành phố
+        
         best_route_names = [self.cities[i] for i in self.best_route]
         
         if verbose:
