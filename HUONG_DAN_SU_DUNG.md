@@ -9,38 +9,38 @@
 
 Chay lenh sau:
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### Chay ung dung
 
-\`\`\`bash
-python scripts/tsp_gui_tkinter.py
-\`\`\`
+```bash
+python scripts/tsp_gui_simple.py
+```
 
 ## Su dung co ban
 
-1. Chon phuong phap nhap du lieu: Mac dinh, Nhap tay, File CSV, hoac Random (5-15 thanh pho)
-2. Neu dung ACO, tuy chinh cac tham so: so kien, so iterations, alpha, beta, evaporation rate, Q constant
-3. Nhan nut "GIAI BAI TOAN" de chay hai thuat toan
-4. Xem ket qua so sanh trong tab "Ket qua"
-5. Nhan "Xem bieu do" de xem bieu do so sanh
-6. Nhan "In chi tiet" de xem cac buoc chi tiet cua tung thuat toan
+1. Chọn phương pháp nhập dữ liệu: Mặc định, Nhập tay, Import CSV, hoặc Random (số thành phố 3-15).
+2. Nếu dùng ACO, tuỳ chỉnh các tham số: số kiến (Ants), số iterations, alpha, beta, evaporation rate và Q constant.
+3. Nhấn nút "🚀 SOLVE PROBLEM" để chạy cả hai thuật toán (Backtracking và ACO).
+4. Xem kết quả so sánh trong tab "Results".
+5. Nhấn "View Charts" để xem biểu đồ so sánh trong tab "Charts".
+6. Nhấn "Save Details" để lưu kết quả chi tiết ra file văn bản.
 
-## Tep CSV
+## Import CSV
 
-Tep CSV can co dung: name,longitude,latitude
+Tệp CSV có thể có header chứa `name`, `latitude`/`lat` và `longitude`/`lon` (không phân biệt chữ hoa thường). Nếu không có header, parser sẽ giả định thứ tự `name,longitude,latitude` theo ví dụ dưới.
 
-Ví du:
-\`\`\`
+Ví dụ:
+```
 name,longitude,latitude
 Ha Noi,105.8,21.0
 Hai Phong,106.7,20.8
 Da Nang,108.2,16.0
-\`\`\`
+```
 
-## Cac tham so ACO
+## Tham so ACO
 
 - So kien (n_ants): 5-50, mac dinh 20
 - Iterations: 10-200, mac dinh 50
